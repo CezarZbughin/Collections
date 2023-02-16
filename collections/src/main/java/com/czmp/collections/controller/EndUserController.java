@@ -5,11 +5,9 @@ import com.czmp.collections.model.ChatMessage;
 import com.czmp.collections.model.EndUser;
 import com.czmp.collections.repository.EndUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,22 +16,19 @@ public class EndUserController {
     @Autowired
     EndUserRepository endUserRepository;
 
-    @GetMapping(value ="/endUsers/dummy")
+    @GetMapping(value ="/user/dummy")
     public EndUser getDummy(){
-        return new EndUser("root", "root", new ArrayList<>());
+       return null;
     }
 
-    @GetMapping(value ="/endUsers")
+    @RequestMapping(value = "/user/self", method = RequestMethod.GET)
+    @ResponseBody
+    public String getSelf(Principal principal) {
+        return "Current user is " + principal.getName() + ".";
+    }
+
+    @GetMapping(value ="/user/all")
     public List<EndUser> getAll(){
         return endUserRepository.findAll();
-    }
-
-    @PostMapping(value ="/endUsers/save")
-    public void save(@RequestBody EndUserDTO endUserDTO){
-        EndUser endUser = new EndUser();
-        endUser.setUsername(endUserDTO.getUsername());
-        endUser.setPassword(endUserDTO.getPassword());
-        endUser.setCollections(new ArrayList<>());
-        endUserRepository.save(endUser);
     }
 }

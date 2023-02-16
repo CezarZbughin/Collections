@@ -1,5 +1,6 @@
 package com.czmp.collections.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,8 @@ public class Item extends IdentityModel<Long> {
 
     @ManyToOne
     @JoinColumn(name = "collectionId")
-    private Collection collection;
+    @JsonManagedReference
+    private ItemCollection collection;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "item_has_tag",
@@ -29,4 +31,6 @@ public class Item extends IdentityModel<Long> {
             inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
     private List<Tag> tags;
 
+    @ManyToMany(mappedBy = "likedItems")
+    List<EndUser> likes;
 }

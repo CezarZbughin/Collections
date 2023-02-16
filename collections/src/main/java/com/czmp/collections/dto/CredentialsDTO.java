@@ -1,12 +1,9 @@
 package com.czmp.collections.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
-public class EndUserDTO {
+@Data
+public class CredentialsDTO {
     private String username;
     private String password;
-
 }

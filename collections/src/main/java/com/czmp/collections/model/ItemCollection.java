@@ -1,11 +1,16 @@
 package com.czmp.collections.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -13,15 +18,17 @@ import java.util.List;
 @AllArgsConstructor
 @Setter
 @Getter
-public class Collection extends IdentityModel<Long>{
+public class ItemCollection extends IdentityModel<Long>{
     private String name;
     private String description;
 
     @ManyToOne
     @JoinColumn(name = "end_user_id")
+    @JsonManagedReference
     private EndUser endUser;
 
     @OneToMany(mappedBy = "collection")
+    @JsonBackReference
     private List<Item> items;
 
     @ManyToMany(cascade = CascadeType.ALL)
