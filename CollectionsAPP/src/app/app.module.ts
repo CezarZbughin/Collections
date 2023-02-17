@@ -5,17 +5,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {ItemService} from "./item.service";
 import {HttpClientModule} from "@angular/common/http";
-import { HeaderComponent } from './shared/header/header.component';
-import { FooterComponent } from './shared/footer/footer.component';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import {AlertModule} from "ngx-bootstrap/alert";
-import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ItemDetailsComponent } from './pages/item-details/item-details.component';
 import { ChatComponent } from './pages/chat/chat.component';
 import { AddItemComponent } from './pages/add-item/add-item.component';
-import { PageWrapperComponent } from './shared/page-wrapper/page-wrapper.component';
+import { PageWrapperComponent } from './shared/components/page-wrapper/page-wrapper.component';
 
 @NgModule({
   declarations: [
