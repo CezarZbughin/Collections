@@ -13,5 +13,5 @@ public class ItemDTO {
     private String name;
     private String description;
     private Item.Status status;
-    private List<Tag> tags;
+    private List<String> tags;
 }

@@ -28,6 +28,7 @@ public class ItemCollection extends IdentityModel<Long>{
     private EndUser endUser;
 
     @OneToMany(mappedBy = "collection")
+    @JsonIdentityReference(alwaysAsId=true)
     private List<Item> items;
 
     @ManyToMany(cascade = CascadeType.ALL)

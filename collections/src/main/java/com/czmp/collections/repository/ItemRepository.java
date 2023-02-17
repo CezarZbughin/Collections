@@ -14,6 +14,6 @@ import java.util.Optional;
 public interface ItemRepository extends JpaRepository<Item, Long> {
     Optional<Item> findByName(String name);
     List<Item> findByNameLike(String name);
-  //  List<Item> findByNameLikeAndTagsContains(String name, List<Tag> tags);
+    List<Item> findByNameLikeAndTags(String name, Tag tags);
 }
 

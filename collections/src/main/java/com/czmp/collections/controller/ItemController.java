@@ -2,6 +2,7 @@ package com.czmp.collections.controller;
 
 import com.czmp.collections.dto.CollectionDTO;
 import com.czmp.collections.dto.ItemDTO;
+import com.czmp.collections.dto.TagDTO;
 import com.czmp.collections.model.EndUser;
 import com.czmp.collections.model.Item;
 import com.czmp.collections.model.ItemCollection;
@@ -76,7 +77,10 @@ public class ItemController {
         item.setDescription(itemDTO.getDescription());
         item.setStatus(itemDTO.getStatus());
         item.setCollection(collection.get());
-        item.setTags(itemDTO.getTags());
+        for(String tagName : itemDTO.getTags()){
+            Optional<Tag> tag = tagRepository.findByName(tagName);
+            tag.ifPresent(tagE -> item.getTags().add(tagE));
+        }
         item.setLikes(new ArrayList<>());
 
         try{
@@ -100,7 +104,11 @@ public class ItemController {
         item.get().setName(itemDTO.getName());
         item.get().setDescription(itemDTO.getDescription());
         item.get().setStatus(itemDTO.getStatus());
-        item.get().setTags(itemDTO.getTags());
+        item.get().getTags().clear();
+        for(String tagName : itemDTO.getTags()){
+            Optional<Tag> tag = tagRepository.findByName(tagName);
+            tag.ifPresent(tagE -> item.get().getTags().add(tagE));
+        }
 
         try{
             itemService.userUpdatesItem(user.get(), item.get());
@@ -129,28 +137,22 @@ public class ItemController {
         return new ResponseEntity<>("Item deleted successfully", HttpStatus.OK);
     }
 
-    //@GetMapping(value ="/item/search")
-    //public ResponseEntity<?> searchByName(@PathVariable Map<String,String> params){
-    //    String name = params.get("name");
-    //    String tagsParam = params.get("tags");
-    //    if(name == null) {
-    //        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No name provided!");
-    //    }
-    //    if(tagsParam == null){
-    //        return ResponseEntity.ok(itemRepository.findByNameLike("%" + name + "%"));
-    //    }
-    //    String[] tagNames = tagsParam.split(",");
-    //    List<Tag> tags = new ArrayList<>();
-    //    for(String tagName : tagNames){
-    //        Optional<Tag> tag = tagRepository.findByName(tagName);
-    //        if(tag.isPresent()){
-    //            tags.add(tag.get());
-    //        }
-    //    }
-    //    return ResponseEntity.ok(itemRepository.findByNameLikeAndTagsContains("%"+name+"%", tags))//
-    //}
-
-
+    @GetMapping(value ="/item/search")
+    public ResponseEntity<?> searchByName(@RequestParam Map<String,String> params){
+        String name = params.get("name");
+        String tagName = params.get("tag");
+        if(name == null) {
+            name = "";
+        }
+        if(tagName == null){
+            return ResponseEntity.ok(itemRepository.findByNameLike("%" + name + "%"));
+        }
+        Optional<Tag> tag = tagRepository.findByName(tagName);
+        if(tag.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ArrayList<Item>());
+        }
+        return ResponseEntity.ok(itemRepository.findByNameLikeAndTags("%"+name+"%", tag.get()));
+    }
 
 }
 

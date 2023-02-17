@@ -25,6 +25,24 @@ public class CollectionController {
     @Autowired
     CollectionService collectionService;
 
+    @GetMapping(value="collection/find/id={id}")
+    public @ResponseBody ResponseEntity<?> getById(@PathVariable long id){
+        Optional<ItemCollection> collection = collectionRepository.findById(id);
+        if(collection.isPresent()) {
+            return ResponseEntity.ok(collection.get());
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Collection not found!");
+    }
+
+    @GetMapping(value="collection/find/name={name}")
+    public @ResponseBody ResponseEntity<?> getByName(@PathVariable String name){
+        Optional<ItemCollection> collection = collectionRepository.findByName(name);
+        if(collection.isPresent()) {
+            return ResponseEntity.ok(collection.get());
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Collection not found!");
+    }
+
     @GetMapping(value ="/collection/all")
     public List<ItemCollection> getAll() {
         return collectionRepository.findAll();
@@ -42,20 +60,5 @@ public class CollectionController {
         Optional<EndUser> user = endUserRepository.findByUsername(principal.getName());
         collectionService.userAddCollection(user.get(), collection);
         return new ResponseEntity<>("Collection added successfully to " + user.get().getUsername(), HttpStatus.OK);
-    }
-
-    @GetMapping(value="collection/id={id}")
-    public @ResponseBody ItemCollection getById(@PathVariable String id){
-        long idL;
-        try {
-            idL = Long.valueOf(id);
-        }catch (NumberFormatException ignored){
-            return null;
-        }
-        Optional<ItemCollection> collection = collectionRepository.findById(idL);
-        if(!collection.isPresent()) {
-            return null;
-        }
-        return collection.get();
     }
 }

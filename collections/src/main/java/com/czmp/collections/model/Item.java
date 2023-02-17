@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -36,9 +37,10 @@ public class Item extends IdentityModel<Long> {
     @JoinTable(name = "item_has_tag",
             joinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
-    private List<Tag> tags;
+    @JsonIdentityReference(alwaysAsId=true)
+    private List<Tag> tags = new ArrayList<>();
 
     @ManyToMany(mappedBy = "likedItems")
     @JsonIdentityReference(alwaysAsId=true)
-    List<EndUser> likes;
+    List<EndUser> likes = new ArrayList<>();
 }
