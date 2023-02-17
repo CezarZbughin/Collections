@@ -1,7 +1,9 @@
 package com.czmp.collections.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +21,9 @@ import java.util.List;
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username")
         })
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class EndUser extends IdentityModel<Long> {
     private String username;
     private String password;
@@ -30,7 +35,6 @@ public class EndUser extends IdentityModel<Long> {
     List<Role> roles;
 
     @OneToMany(mappedBy = "endUser")
-    @JsonBackReference
     private List<ItemCollection> collections;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

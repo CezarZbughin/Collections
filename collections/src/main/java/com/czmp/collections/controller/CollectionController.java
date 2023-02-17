@@ -1,10 +1,8 @@
 package com.czmp.collections.controller;
 
 import com.czmp.collections.dto.CollectionDTO;
-import com.czmp.collections.dto.ItemDTO;
-import com.czmp.collections.model.Item;
-import com.czmp.collections.model.ItemCollection;
 import com.czmp.collections.model.EndUser;
+import com.czmp.collections.model.ItemCollection;
 import com.czmp.collections.repository.CollectionRepository;
 import com.czmp.collections.repository.EndUserRepository;
 import com.czmp.collections.service.CollectionService;
@@ -46,4 +44,18 @@ public class CollectionController {
         return new ResponseEntity<>("Collection added successfully to " + user.get().getUsername(), HttpStatus.OK);
     }
 
+    @GetMapping(value="collection/id={id}")
+    public @ResponseBody ItemCollection getById(@PathVariable String id){
+        long idL;
+        try {
+            idL = Long.valueOf(id);
+        }catch (NumberFormatException ignored){
+            return null;
+        }
+        Optional<ItemCollection> collection = collectionRepository.findById(idL);
+        if(!collection.isPresent()) {
+            return null;
+        }
+        return collection.get();
+    }
 }
