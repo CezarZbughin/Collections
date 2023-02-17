@@ -36,5 +36,6 @@ public class ItemCollection extends IdentityModel<Long>{
     @JoinTable(name = "collection_has_tag",
             joinColumns = @JoinColumn(name = "collection_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
+    @JsonIdentityReference(alwaysAsId=true)
     private List<Tag> tags = new ArrayList<>();
 }

@@ -2,6 +2,7 @@ package com.czmp.collections.controller;
 
 import com.czmp.collections.dto.AuthResponseDTO;
 import com.czmp.collections.dto.CredentialsDTO;
+import com.czmp.collections.dto.MessageResponseDTO;
 import com.czmp.collections.model.Role;
 import com.czmp.collections.repository.EndUserRepository;
 import com.czmp.collections.repository.RoleRepository;
@@ -35,9 +36,9 @@ public class AuthenticationController {
     private JWTGenerator jwtGenerator;
 
     @PostMapping(value = "/register")
-    public ResponseEntity<String> register(@RequestBody CredentialsDTO credentialsDTO){
+    public ResponseEntity<?> register(@RequestBody CredentialsDTO credentialsDTO){
         if(endUserRepository.existsByUsername(credentialsDTO.getUsername())){
-            return new ResponseEntity<>("Username already taken!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new MessageResponseDTO("Username already taken!"), HttpStatus.BAD_REQUEST);
         }
 
         EndUser endUser = new EndUser();
@@ -46,10 +47,10 @@ public class AuthenticationController {
         if(roleRepository.findByName("USER").isPresent()) {
             endUser.setRoles(List.of(roleRepository.findByName("USER").get()));
         } else {
-            return new ResponseEntity<>("There is no USER role in database therefore a user cannot be created", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new MessageResponseDTO("There is no USER role in database therefore a user could not be created"), HttpStatus.BAD_REQUEST);
         }
         endUserRepository.save(endUser);
-        return new ResponseEntity<>("Successfully added user", HttpStatus.OK);
+        return new ResponseEntity<>(new MessageResponseDTO("Successfully added user"), HttpStatus.OK);
     }
 
     @PostMapping(value = "/login")
@@ -60,7 +61,7 @@ public class AuthenticationController {
                     new UsernamePasswordAuthenticationToken(credentialsDTO.getUsername(), credentialsDTO.getPassword())
             );
         } catch (AuthenticationException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Username and password don't match");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponseDTO("Username and password don't match"));
         }
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtGenerator.generateToken(authentication);

@@ -2,6 +2,7 @@ package com.czmp.collections.controller;
 
 import com.czmp.collections.dto.CollectionDTO;
 import com.czmp.collections.dto.ItemDTO;
+import com.czmp.collections.dto.MessageResponseDTO;
 import com.czmp.collections.dto.TagDTO;
 import com.czmp.collections.model.EndUser;
 import com.czmp.collections.model.Item;
@@ -48,7 +49,7 @@ public class ItemController {
         if(item.isPresent()){
             return ResponseEntity.ok(item.get());
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponseDTO("Item not found"));
         }
     }
 
@@ -58,7 +59,7 @@ public class ItemController {
         if(item.isPresent()){
             return ResponseEntity.ok(item.get());
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Item not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponseDTO("Item not found"));
         }
     }
 
@@ -67,10 +68,10 @@ public class ItemController {
         Optional<ItemCollection> collection = collectionRepository.findById(id);
         Optional<EndUser> user = endUserRepository.findByUsername(principal.getName());
         if(!collection.isPresent()){
-            return new ResponseEntity<>("No collection with id " + id, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new MessageResponseDTO("No collection with id " + id), HttpStatus.NOT_FOUND);
         }
         if(!user.isPresent()){
-            return new ResponseEntity<>("Your identity could not be confirmed", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(new MessageResponseDTO("Your identity could not be confirmed"), HttpStatus.UNAUTHORIZED);
         }
         Item item = new Item();
         item.setName(itemDTO.getName());
@@ -86,9 +87,9 @@ public class ItemController {
         try{
             itemService.userAddsItemToCollection(user.get(), item, collection.get());
         } catch (NoPermissionException e){
-            return new ResponseEntity<>("You don't have permission to add items to this collection", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(new MessageResponseDTO("You don't have permission to add items to this collection"), HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<>("Item added successfully", HttpStatus.OK);
+        return new ResponseEntity<>(new MessageResponseDTO("Item added successfully"), HttpStatus.OK);
     }
 
     @PostMapping(value ="/item/update")
@@ -96,10 +97,10 @@ public class ItemController {
         Optional<EndUser> user = endUserRepository.findByUsername(principal.getName());
         Optional<Item> item = itemRepository.findById(itemDTO.getId());
         if(user.isEmpty()){
-            return new ResponseEntity<>("Your identity could not be confirmed", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(new MessageResponseDTO("Your identity could not be confirmed"), HttpStatus.UNAUTHORIZED);
         }
         if(item.isEmpty()){
-            return new ResponseEntity<>("Item not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new MessageResponseDTO("Item not found"), HttpStatus.NOT_FOUND);
         }
         item.get().setName(itemDTO.getName());
         item.get().setDescription(itemDTO.getDescription());
@@ -113,9 +114,9 @@ public class ItemController {
         try{
             itemService.userUpdatesItem(user.get(), item.get());
         } catch (NoPermissionException e){
-            return new ResponseEntity<>("You don't have permission to edit this item", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(new MessageResponseDTO("You don't have permission to edit this item"), HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<>("Item edited successfully", HttpStatus.OK);
+        return new ResponseEntity<>(new MessageResponseDTO("Item edited successfully"), HttpStatus.OK);
     }
 
     @PostMapping(value ="/item/delete")
@@ -123,18 +124,18 @@ public class ItemController {
         Optional<EndUser> user = endUserRepository.findByUsername(principal.getName());
         Optional<Item> item = itemRepository.findById(id);
         if(user.isEmpty()){
-            return new ResponseEntity<>("Your identity could not be confirmed", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(new MessageResponseDTO("Your identity could not be confirmed"), HttpStatus.UNAUTHORIZED);
         }
         if(item.isEmpty()){
-            return new ResponseEntity<>("Item not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new MessageResponseDTO("Item not found"), HttpStatus.NOT_FOUND);
         }
 
         try{
             itemService.userDeletesItem(user.get(), item.get());
         } catch (NoPermissionException e){
-            return new ResponseEntity<>("You don't have permission to delete this item", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(new MessageResponseDTO("You don't have permission to delete this item"), HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<>("Item deleted successfully", HttpStatus.OK);
+        return new ResponseEntity<>(new MessageResponseDTO("Item deleted successfully"), HttpStatus.OK);
     }
 
     @GetMapping(value ="/item/search")

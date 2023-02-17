@@ -24,4 +24,11 @@ public class CollectionService {
         }
         collectionRepository.save(collection);
     }
+
+    public void userDeletesItem(EndUser user, ItemCollection collection) throws NoPermissionException {
+        if(collection.getEndUser().getId().equals(user.getId())){
+            throw new NoPermissionException();
+        }
+        collectionRepository.delete(collection);
+    }
 }
