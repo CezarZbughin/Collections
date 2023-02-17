@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {ItemService} from "./item.service";
 import {HttpClientModule} from "@angular/common/http";
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
@@ -16,6 +15,7 @@ import { ItemDetailsComponent } from './pages/item-details/item-details.componen
 import { ChatComponent } from './pages/chat/chat.component';
 import { AddItemComponent } from './pages/add-item/add-item.component';
 import { PageWrapperComponent } from './shared/components/page-wrapper/page-wrapper.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -36,9 +36,11 @@ import { PageWrapperComponent } from './shared/components/page-wrapper/page-wrap
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    AlertModule
+    AlertModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [ItemService],
+  // providers: [ItemService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,4 +9,7 @@ export class EndUserDto {
   roles: RoleDto[] = [];
   collections: ItemCollectionDto[] = [];
   linkedItems: ItemDto[] = [];
+  token: string = "";
+
+
 }
