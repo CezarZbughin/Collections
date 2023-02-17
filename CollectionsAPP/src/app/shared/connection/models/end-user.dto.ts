@@ -10,6 +10,4 @@ export class EndUserDto {
   collections: ItemCollectionDto[] = [];
   linkedItems: ItemDto[] = [];
   token: string = "";
-
-
 }

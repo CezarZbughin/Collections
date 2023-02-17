@@ -1,25 +1,23 @@
 import { Injectable } from '@angular/core';
-import {EndUserDto} from "../connection/models/end-user.dto";
+import {SessionDetails} from "../../internal-models/session-details";
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
 
-  public user: EndUserDto = new EndUserDto();
+  public currentSession: SessionDetails
 
-  saveUserData(user: EndUserDto): void {
+  saveUserData(currentSession: SessionDetails): void {
 
-    localStorage.setItem('id',user.id.toString());
-    localStorage.setItem('username',user.username);
-    localStorage.setItem('password',user.password);
-    localStorage.setItem('token',user.token);
+    localStorage.setItem('id',currentSession.userId.toString());
+    localStorage.setItem('username',currentSession.username);
+    localStorage.setItem('authToken',currentSession.authToken);
+    localStorage.setItem('isAdmin',currentSession.isAdmin.toString());
+    localStorage.setItem('isLoggedIn',currentSession.isLoggedIn.toString());
 
-    this.user.id = user.id;
-    this.user.username = user.username;
-    this.user.password = user.password;
+    this.currentSession = currentSession;
 
   }
 
-  constructor() { }
 }

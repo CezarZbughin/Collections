@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {LoginRequest} from "../../internal-models/login-request";
-import {LoginService} from "../../shared/services/login.service";
+import {AuthRequest} from "../../internal-models/auth-request";
+import {AuthService} from "../../shared/services/auth.service";
 import {StorageService} from "../../shared/services/storage.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {error} from "@angular/compiler-cli/src/transformers/util";
+import {LoginResponseDto} from "../../shared/connection/models/login-response.dto";
 
 @Component({
   selector: 'app-login',
@@ -23,7 +23,7 @@ export class LoginComponent {
   });
 
   constructor(
-    private loginService: LoginService,
+    private authService: AuthService,
     private storageService: StorageService,
     private router: Router,
     private route: ActivatedRoute
@@ -35,15 +35,15 @@ export class LoginComponent {
       let username = this.form.controls.username.value ?? "";
       let password = this.form.controls.password.value ?? "";
 
-      const loginRequest = new LoginRequest(username,password)
+      const loginRequest = new AuthRequest(username,password)
       console.log(loginRequest)
-      this.loginService.loginPostRequest(loginRequest)
-        .subscribe(
-          (response) => {
-              console.log(response);
-          },
-        (error) => {
-            console.log(error);
+      this.authService.loginPostRequest(loginRequest)
+        .subscribe({
+            complete: () => {this.router.navigate([".."],{relativeTo: this.route})},
+            error: (error) => {console.log(error)},
+            next: (response : LoginResponseDto | String) => {
+              console.log(response)
+            }
           }
           );
       }
