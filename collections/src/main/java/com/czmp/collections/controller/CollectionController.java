@@ -1,16 +1,21 @@
 package com.czmp.collections.controller;
 
 import com.czmp.collections.dto.CollectionDTO;
+import com.czmp.collections.dto.ItemDTO;
 import com.czmp.collections.model.EndUser;
+import com.czmp.collections.model.Item;
 import com.czmp.collections.model.ItemCollection;
+import com.czmp.collections.model.Tag;
 import com.czmp.collections.repository.CollectionRepository;
 import com.czmp.collections.repository.EndUserRepository;
+import com.czmp.collections.repository.TagRepository;
 import com.czmp.collections.service.CollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.NoPermissionException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +29,14 @@ public class CollectionController {
     EndUserRepository endUserRepository;
     @Autowired
     CollectionService collectionService;
+
+    @Autowired
+    TagRepository tagRepository;
+
+    @GetMapping(value ="/collection/all")
+    public List<ItemCollection> getAll() {
+        return collectionRepository.findAll();
+    }
 
     @GetMapping(value="collection/find/id={id}")
     public @ResponseBody ResponseEntity<?> getById(@PathVariable long id){
@@ -42,23 +55,69 @@ public class CollectionController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Collection not found!");
     }
-
-    @GetMapping(value ="/collection/all")
-    public List<ItemCollection> getAll() {
-        return collectionRepository.findAll();
-    }
-
     @PostMapping(value ="/collection/save")
     @ResponseBody
     public ResponseEntity<?> save(Principal principal, @RequestBody CollectionDTO collectionDTO) {
         ItemCollection collection = new ItemCollection();
         collection.setName(collectionDTO.getName());
         collection.setDescription( collectionDTO.getDescription());
-        collection.setTags(collectionDTO.getTags());
-        collection.setItems(new ArrayList<>());
-
+        for(String tagName : collectionDTO.getTags()){
+            Optional<Tag> tag = tagRepository.findByName(tagName);
+            tag.ifPresent(tagE -> collection.getTags().add(tagE));
+        }
         Optional<EndUser> user = endUserRepository.findByUsername(principal.getName());
+        if(user.isEmpty()){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Your identity could not be confirmed!");
+        }
         collectionService.userAddCollection(user.get(), collection);
         return new ResponseEntity<>("Collection added successfully to " + user.get().getUsername(), HttpStatus.OK);
     }
+
+    @PostMapping(value ="/collection/update")
+    public ResponseEntity<?> update(Principal principal, @RequestBody CollectionDTO collectionDTO) {
+        Optional<EndUser> user = endUserRepository.findByUsername(principal.getName());
+        Optional<ItemCollection> collection = collectionRepository.findById(collectionDTO.getId());
+        if(user.isEmpty()){
+            return new ResponseEntity<>("Your identity could not be confirmed", HttpStatus.UNAUTHORIZED);
+        }
+        if(collection.isEmpty()){
+            return new ResponseEntity<>("Collection not found", HttpStatus.NOT_FOUND);
+        }
+        collection.get().setName(collectionDTO.getName());
+        collection.get().setDescription(collectionDTO.getDescription());
+        collection.get().getTags().clear();
+        for(String tagName : collectionDTO.getTags()){
+            Optional<Tag> tag = tagRepository.findByName(tagName);
+            tag.ifPresent(tagE -> collection.get().getTags().add(tagE));
+        }
+
+        try{
+            collectionService.userUpdatesCollection(user.get(), collection.get());
+        } catch (NoPermissionException e){
+            return new ResponseEntity<>("You don't have permission to edit this item", HttpStatus.UNAUTHORIZED);
+        }
+        return new ResponseEntity<>("Item edited successfully", HttpStatus.OK);
+    }
+
+
+    @PostMapping(value ="/collection/delete")
+    public ResponseEntity<?> delete(Principal principal, @RequestBody Long id) {
+        Optional<EndUser> user = endUserRepository.findByUsername(principal.getName());
+        Optional<ItemCollection> collection = collectionRepository.findById(id);
+        if(user.isEmpty()){
+            return new ResponseEntity<>("Your identity could not be confirmed", HttpStatus.UNAUTHORIZED);
+        }
+        if(collection.isEmpty()){
+            return new ResponseEntity<>("Collection not found", HttpStatus.NOT_FOUND);
+        }
+
+        //try{
+        //   // itemService.userDeletesItem(user.get(), collection.get());
+        //} catch (NoPermissionException e){
+        //    return new ResponseEntity<>("You don't have permission to delete this item", HttpStatus.UNAUTHORIZED);
+        //}
+        return new ResponseEntity<>("Item deleted successfully", HttpStatus.OK);
+    }
+
+
 }

@@ -10,7 +10,8 @@ import java.util.List;
 
 @Data
 public class CollectionDTO {
+    private Long id;
     private String name;
     private String description;
-    private List<Tag> tags;
+    private List<String> tags;
 }

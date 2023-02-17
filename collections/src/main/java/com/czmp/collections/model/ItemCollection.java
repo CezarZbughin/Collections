@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,11 +30,11 @@ public class ItemCollection extends IdentityModel<Long>{
 
     @OneToMany(mappedBy = "collection")
     @JsonIdentityReference(alwaysAsId=true)
-    private List<Item> items;
+    private List<Item> items = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "collection_has_tag",
             joinColumns = @JoinColumn(name = "collection_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
-    private List<Tag> tags;
+    private List<Tag> tags = new ArrayList<>();
 }
