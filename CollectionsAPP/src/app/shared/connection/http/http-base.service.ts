@@ -5,14 +5,12 @@ const httpOptions = {
   headers: new HttpHeaders({
     'Access-Control-Allow-Origin':'*',
     'Authorization':'authkey',
-    'userid':'1'
   })
 };
 
 export abstract class HttpBaseService {
 
   constructor(protected http: HttpClient) { }
-
 
   protected abstract getBasePath(): string;
 
@@ -23,6 +21,7 @@ export abstract class HttpBaseService {
 
   public post<T, U>(entityPath: string, body: U): Observable<T> {
     const path = `${this.getBasePath()}${entityPath}`;
+    console.log(path);
     return this.http.post<T>(path, body, httpOptions);
   }
 
