@@ -6,8 +6,8 @@ import com.czmp.collections.model.ChatMessage;
 import com.czmp.collections.model.EndUser;
 import com.czmp.collections.repository.EndUserRepository;
 import com.czmp.collections.repository.MessageRepository;
-import com.czmp.collections.service.EndUserService;
 import com.czmp.collections.service.MessageService;
+import com.czmp.collections.service.NotificationService;
 import com.czmp.collections.service.exception.CannotSendMessageException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +20,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin("*")
 public class MessageController {
     @Autowired
     private MessageService messageService;
@@ -27,6 +28,8 @@ public class MessageController {
     private MessageRepository messageRepository;
     @Autowired
     private EndUserRepository endUserRepository;
+    @Autowired
+    private NotificationService notificationService;
 
     @GetMapping(value ="/message/all")
     public ResponseEntity<?> getAll() {
@@ -95,6 +98,7 @@ public class MessageController {
         }
         try {
             messageService.userSendsMessage(sender.get(), receiver.get(), chatMessageDTO.getMessage());
+            notificationService.messageNotification(receiver.get(), sender.get(), chatMessageDTO.getMessage());
         } catch (CannotSendMessageException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MessageResponseDTO(e.getMessage()));
         }
