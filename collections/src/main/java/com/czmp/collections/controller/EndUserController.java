@@ -7,15 +7,18 @@ import com.czmp.collections.model.*;
 import com.czmp.collections.repository.EndUserRepository;
 import com.czmp.collections.repository.ItemRepository;
 import com.czmp.collections.repository.NotificationRepository;
+import com.czmp.collections.service.EndUserService;
 import com.czmp.collections.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.function.EntityResponse;
 
 import javax.naming.NoPermissionException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,6 +32,8 @@ public class EndUserController {
     ItemRepository itemRepository;
     @Autowired
     NotificationService notificationService;
+    @Autowired
+    EndUserService endUserService;
 
     @GetMapping(value ="/user/all")
     public ResponseEntity<?> getAll() {
@@ -99,13 +104,23 @@ public class EndUserController {
         return ResponseEntity.ok(new MessageResponseDTO("Item unliked if it was previously liked!"));
     }
 
+    @GetMapping(value ="/user/liked-items")
+    public ResponseEntity<?> getLiked(Principal principal){
+        Optional<EndUser> user = endUserRepository.findByUsername(principal.getName());
+        if(user.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponseDTO("Your identity could not be confirmed"));
+        }
+        return ResponseEntity.ok(user.get().getLikedItems());
+    }
+
     @GetMapping(value ="/user/feed")
     public ResponseEntity<?> getFeed(Principal principal){
         Optional<EndUser> user = endUserRepository.findByUsername(principal.getName());
         if(user.isEmpty()){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponseDTO("Your identity could not be confirmed"));
         }
-        return ResponseEntity.ok(user.get());
+        List<Item> items = endUserService.getFeed(user.get());
 
+        return ResponseEntity.ok(items);
     }
 }
