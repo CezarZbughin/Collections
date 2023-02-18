@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {LoginRequest} from "../../internal-models/login-request";
-import {LoginService} from "../../shared/services/login.service";
-import {StorageService} from "../../shared/services/storage.service";
+import {AuthRequest} from "../../internal-models/auth-request";
+import {AuthService} from "../../shared/services/auth.service";
+import {SessionService} from "../../shared/services/session.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {error} from "@angular/compiler-cli/src/transformers/util";
+import {LoginResponseDto} from "../../shared/connection/models/login-response.dto";
+import {SessionDetails} from "../../internal-models/session-details";
 
 @Component({
   selector: 'app-login',
@@ -21,10 +22,10 @@ export class LoginComponent {
     username: new FormControl('',[Validators.required,Validators.minLength(5),Validators.maxLength(30)]),
     password: new FormControl('',[Validators.required])
   });
+  message: string = "Do not have an account?";
 
   constructor(
-    private loginService: LoginService,
-    private storageService: StorageService,
+    private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
   ){}
@@ -35,17 +36,23 @@ export class LoginComponent {
       let username = this.form.controls.username.value ?? "";
       let password = this.form.controls.password.value ?? "";
 
-      const loginRequest = new LoginRequest(username,password)
+      const loginRequest = new AuthRequest(username,password)
       console.log(loginRequest)
-      this.loginService.loginPostRequest(loginRequest)
-        .subscribe(
-          (response) => {
-              console.log(response);
-          },
-        (error) => {
-            console.log(error);
-          }
-          );
+      this.authService.loginPostRequest(loginRequest)
+        .subscribe({
+            complete: () => {
+              this.router.navigate([".."],{relativeTo: this.route})
+            },
+            error: (error) => {
+              this.message = error.message
+            },
+            next: (response : LoginResponseDto | String) => {
+              let loginResponse = response as LoginResponseDto
+              console.log(response)
+              let currentSession = new SessionDetails(username,loginResponse.accessToken,true, false);
+              SessionService.getInstance().saveUserData(currentSession)
+            }
+          });
       }
     }
 

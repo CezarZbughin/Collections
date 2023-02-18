@@ -3,7 +3,7 @@
     <h3>Welcome to Collecty</h3>
     <p>Perfectly designed and precisely prepared for you exclusive social needs</p>
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" role="form" action="index.html">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" role="form">
       <div class="form-group">
         <input formControlName="username" type="text" class="form-control" placeholder="Username" required id="user_name">
       </div>
@@ -12,8 +12,8 @@
       </div>
       <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
 
-      <p class="text-center"><small>Do not have an account?</small></p>
-      <a class="btn btn-white btn-block" href="register.html">Create an account</a>
+      <p class="text-center"><small>{{message}}</small></p>
+      <a class="btn btn-white btn-block" href="./register">Create an account</a>
     </form>
   </div>
 </div>
