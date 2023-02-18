@@ -39,5 +39,6 @@ public class EndUser extends IdentityModel<Long> {
     @JoinTable(name = "user_likes_item",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "item_id", referencedColumnName = "id"))
+
     List<Item> likedItems;
 }

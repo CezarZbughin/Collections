@@ -57,6 +57,7 @@ public class CollectionController {
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new MessageResponseDTO("Collection not found!"));
     }
+
     @PostMapping(value ="/collection/save")
     @ResponseBody
     public ResponseEntity<?> save(Principal principal, @RequestBody CollectionDTO collectionDTO) {

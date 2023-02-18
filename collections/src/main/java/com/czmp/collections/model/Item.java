@@ -1,9 +1,6 @@
 package com.czmp.collections.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,5 +39,6 @@ public class Item extends IdentityModel<Long> {
 
     @ManyToMany(mappedBy = "likedItems")
     @JsonIdentityReference(alwaysAsId=true)
+    @JsonIgnore
     List<EndUser> likes = new ArrayList<>();
 }

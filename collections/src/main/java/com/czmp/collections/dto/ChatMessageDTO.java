@@ -11,9 +11,5 @@ import java.util.Date;
 @Getter
 @Setter
 public class ChatMessageDTO {
-    private Long id;
     private String message;
-    private Date sentDate;
-    private EndUser sender;
-    private EndUser receiver;
 }
