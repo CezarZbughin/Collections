@@ -99,7 +99,6 @@ public class EndUserController {
         if(user.isEmpty()){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new MessageResponseDTO("Your identity could not be confirmed"));
         }
-        List<Item>
         return ResponseEntity.ok(user.get());
 
     }
