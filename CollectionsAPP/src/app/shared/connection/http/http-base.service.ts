@@ -32,4 +32,5 @@ export abstract class HttpBaseService {
     const path = `${this.getBasePath()}${entityPath}`;
     return this.http.delete<T>(path);
   }
+
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {SessionDetails} from "../../internal-models/session-details";
+import {EndUserDto} from "../connection/models/end-user.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,9 @@ import {SessionDetails} from "../../internal-models/session-details";
 export class SessionService {
 
   private static shared: SessionService;
-
   public currentSession: SessionDetails
+  public currentUser: EndUserDto;
+
 
   private constructor() {
   }
@@ -45,8 +47,12 @@ export class SessionService {
     )
   }
 
+
+
   clearSession() {
     localStorage.clear();
+    this.currentSession = new SessionDetails("","",false,false);
+    this.currentUser = new EndUserDto(0,"",[],[],[],"");
   }
 
 }

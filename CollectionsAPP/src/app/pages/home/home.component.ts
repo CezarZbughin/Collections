@@ -19,9 +19,9 @@ export class HomeComponent implements OnInit{
   }
 
   ngOnInit(): void{
-
-    this.dataService.getAllItems().subscribe({
+      this.dataService.getAllItems().subscribe({
       complete: () => {
+        console.log("Not here")
       },
       error: (error) => {
         console.log(error)
@@ -31,8 +31,4 @@ export class HomeComponent implements OnInit{
       }
     });
   }
-
-
-
-
 }
