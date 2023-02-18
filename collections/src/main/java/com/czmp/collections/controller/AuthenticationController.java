@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import com.czmp.collections.model.EndUser;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -45,6 +46,7 @@ public class AuthenticationController {
         EndUser endUser = new EndUser();
         endUser.setUsername(credentialsDTO.getUsername());
         endUser.setPassword(passwordEncoder.encode(credentialsDTO.getPassword()));
+        endUser.setLastSeenNotification(new Date());
         if(roleRepository.findByName("USER").isPresent()) {
             endUser.setRoles(List.of(roleRepository.findByName("USER").get()));
         } else {
