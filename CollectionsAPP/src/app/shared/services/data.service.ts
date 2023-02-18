@@ -7,19 +7,13 @@ import {SessionService} from "./session.service";
 @Injectable({
   providedIn: 'root'
 })
-export class DataServiceService {
+export class DataService {
 
-  private http: JavaHttpService;
-
-  constructor() {
-    this.http.httpOptions = new Headers({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${SessionService.getInstance().getCurrentSession().authToken}`,
-    });
+  constructor(private http: JavaHttpService) {
   }
 
   getAllItems(): Observable<ItemDto[]> {
-    return this.http.get<ItemDto[]>('item/all');
+    return this.http.get<ItemDto[]>('/item/all');
   }
 
 }
