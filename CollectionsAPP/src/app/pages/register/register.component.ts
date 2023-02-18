@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../shared/services/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthRequest} from "../../internal-models/auth-request";
+import {ResponseMessage} from "../../shared/connection/models/response-message";
 
 @Component({
   selector: 'app-register',
@@ -48,9 +49,9 @@ export class RegisterComponent {
               console.log(error);
               this.message = error.message
             },
-            next: (response: String) => {
-              this.message = "Account successfully created, please login";
-              console.log("response" + response.toString())
+            next: (response: ResponseMessage) => {
+              this.message = response.message;
+              console.log(response.message)
             }
           }
           );

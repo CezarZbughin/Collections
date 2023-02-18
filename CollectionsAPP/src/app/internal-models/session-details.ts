@@ -1,6 +1,7 @@
+import {SessionService} from "../shared/services/session.service";
+
 export class SessionDetails {
 
-  userId: string = '';
   username: string = '';
   authToken: string = '';
   isLoggedIn: boolean = false;

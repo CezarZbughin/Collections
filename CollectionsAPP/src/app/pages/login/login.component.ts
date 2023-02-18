@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthRequest} from "../../internal-models/auth-request";
 import {AuthService} from "../../shared/services/auth.service";
-import {StorageService} from "../../shared/services/storage.service";
+import {SessionService} from "../../shared/services/session.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LoginResponseDto} from "../../shared/connection/models/login-response.dto";
+import {SessionDetails} from "../../internal-models/session-details";
 
 @Component({
   selector: 'app-login',
@@ -21,10 +22,10 @@ export class LoginComponent {
     username: new FormControl('',[Validators.required,Validators.minLength(5),Validators.maxLength(30)]),
     password: new FormControl('',[Validators.required])
   });
+  message: string = "Do not have an account?";
 
   constructor(
     private authService: AuthService,
-    private storageService: StorageService,
     private router: Router,
     private route: ActivatedRoute
   ){}
@@ -39,13 +40,19 @@ export class LoginComponent {
       console.log(loginRequest)
       this.authService.loginPostRequest(loginRequest)
         .subscribe({
-            complete: () => {this.router.navigate([".."],{relativeTo: this.route})},
-            error: (error) => {console.log(error)},
+            complete: () => {
+              this.router.navigate([".."],{relativeTo: this.route})
+            },
+            error: (error) => {
+              this.message = error.message
+            },
             next: (response : LoginResponseDto | String) => {
+              let loginResponse = response as LoginResponseDto
               console.log(response)
+              let currentSession = new SessionDetails(username,loginResponse.accessToken,true, false);
+              SessionService.getInstance().saveUserData(currentSession)
             }
-          }
-          );
+          });
       }
     }
 
