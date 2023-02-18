@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.naming.NoPermissionException;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ItemService {
@@ -18,7 +19,7 @@ public class ItemService {
     private ItemRepository itemRepository;
 
     public void userAddsItemToCollection(EndUser user, Item item, ItemCollection collection) throws NoPermissionException {
-        if(collection.getEndUser().getId() != user.getId()){
+        if(!Objects.equals(collection.getEndUser().getId(), user.getId())){
             throw new NoPermissionException();
         }
         item.setCollection(collection);
@@ -55,7 +56,5 @@ public class ItemService {
         return null;
     }
 
-
-
-
+    
 }
