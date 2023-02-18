@@ -47,7 +47,7 @@ export class RegisterComponent {
             },
             error: (error) => {
               console.log(error);
-              this.message = error.message
+              this.message = error.error.message
             },
             next: (response: ResponseMessage) => {
               this.message = response.message;

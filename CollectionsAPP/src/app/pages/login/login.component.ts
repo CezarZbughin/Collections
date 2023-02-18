@@ -46,7 +46,7 @@ export class LoginComponent {
             complete: () => {
               this.dataService.setCurrentUser()
             },
-            error: (error) => { this.message = error.message },
+            error: (error) => { this.message = error.error.message },
             next: (response : LoginResponseDto | String) => {
               let loginResponse = response as LoginResponseDto
               console.log(response)
