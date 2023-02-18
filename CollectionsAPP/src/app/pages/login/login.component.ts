@@ -6,6 +6,8 @@ import {SessionService} from "../../shared/services/session.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LoginResponseDto} from "../../shared/connection/models/login-response.dto";
 import {SessionDetails} from "../../internal-models/session-details";
+import {DataService} from "../../shared/services/data.service";
+import {EndUserDto} from "../../shared/connection/models/end-user.dto";
 
 @Component({
   selector: 'app-login',
@@ -27,7 +29,8 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dataService: DataService
   ){}
 
   onSubmit() {
@@ -41,11 +44,9 @@ export class LoginComponent {
       this.authService.loginPostRequest(loginRequest)
         .subscribe({
             complete: () => {
-              this.router.navigate([".."],{relativeTo: this.route})
+              this.dataService.setCurrentUser()
             },
-            error: (error) => {
-              this.message = error.message
-            },
+            error: (error) => { this.message = error.message },
             next: (response : LoginResponseDto | String) => {
               let loginResponse = response as LoginResponseDto
               console.log(response)
@@ -55,5 +56,4 @@ export class LoginComponent {
           });
       }
     }
-
 }

@@ -3,7 +3,7 @@
     <li class="nav-header">
       <div>
         <a href="">
-          <strong>User Profile</strong>
+          <strong>{{this.userName.toUpperCase()}}</strong>
         </a>
       </div>
     </li>
@@ -18,6 +18,14 @@
     </li>
     <li>
       <a href="layouts.html"><i class="fa fa-dollar-sign"></i> <span class="nav-label">  Offers</span></a>
+    </li>
+    <li>
+      <p></p>
+      <a style="color: seagreen">
+        Your collections
+      </a></li>
+    <li *ngFor="let category of categories; index as i">
+      <a href="" style="color: white">{{i+1}} {{category}}</a>
     </li>
   </ul>
 </nav>
