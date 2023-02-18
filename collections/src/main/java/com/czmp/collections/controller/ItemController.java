@@ -26,6 +26,7 @@ import java.security.Principal;
 import java.util.*;
 
 @RestController
+@CrossOrigin("*")
 public class ItemController {
     @Autowired
     ItemRepository itemRepository;

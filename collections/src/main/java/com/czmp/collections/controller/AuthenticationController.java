@@ -23,6 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin("*")
 public class AuthenticationController {
     @Autowired
     private AuthenticationManager authenticationManager;
