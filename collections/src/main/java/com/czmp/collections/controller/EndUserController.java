@@ -6,6 +6,8 @@ import com.czmp.collections.dto.MessageResponseDTO;
 import com.czmp.collections.model.*;
 import com.czmp.collections.repository.EndUserRepository;
 import com.czmp.collections.repository.ItemRepository;
+import com.czmp.collections.repository.NotificationRepository;
+import com.czmp.collections.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,8 @@ public class EndUserController {
     EndUserRepository endUserRepository;
     @Autowired
     ItemRepository itemRepository;
+    @Autowired
+    NotificationService notificationService;
 
     @GetMapping(value ="/user/all")
     public ResponseEntity<?> getAll() {
@@ -76,6 +80,7 @@ public class EndUserController {
         }
         user.get().getLikedItems().add(item.get());
         endUserRepository.save(user.get());
+        notificationService.likeNotification(item.get().getCollection().getEndUser(), user.get(), item.get());
         return ResponseEntity.ok(new MessageResponseDTO("Item liked!"));
     }
 

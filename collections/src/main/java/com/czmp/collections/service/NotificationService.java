@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.czmp.collections.model.EndUser;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class NotificationService {
@@ -26,6 +27,9 @@ public class NotificationService {
     }
 
     public void likeNotification(EndUser user, EndUser from, Item item){
+        List<Notification> notificationsToRemove = notificationRepository.findByOwnerAndFromAndItemAndType(user,from,item, Notification.Type.LIKE);
+        notificationRepository.deleteAll(notificationsToRemove);
+
         Notification notification = new Notification();
         notification.setOwner(user);
         notification.setFrom(from);
