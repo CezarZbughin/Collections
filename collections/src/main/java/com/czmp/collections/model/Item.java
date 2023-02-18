@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -23,6 +24,9 @@ public class Item extends IdentityModel<Long> {
     private String name;
     private String description;
     private Status status;
+
+    @JsonIgnore
+    private Date createdOn;
 
     @ManyToOne
     @JoinColumn(name = "collectionId")

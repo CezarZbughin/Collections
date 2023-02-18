@@ -7,7 +7,6 @@ import com.czmp.collections.repository.NotificationRepository;
 import com.czmp.collections.model.Notification;
 import com.czmp.collections.model.EndUser;
 import com.czmp.collections.service.NotificationService;
-import jdk.jfr.Unsigned;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +45,7 @@ public class NotificationController {
         if(user.isEmpty()) {
             return new ResponseEntity<>(new MessageResponseDTO("Your identity could not be confirmed"), HttpStatus.UNAUTHORIZED);
         }
-        List<Notification> notifications = notificationRepository.findByOwnerAndOrderByDateDesc();
+        List<Notification> notifications = notificationRepository.findByOwnerOrderByDateDesc(user.get());
         notifications = notifications.stream().limit(limit).toList();
         return ResponseEntity.ok(notifications);
     }

@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
-    List<Notification> findByOwnerAndOrderByDateDesc();
+    List<Notification> findByOwnerOrderByDateDesc(EndUser owner);
     int countByOwnerAndDateAfter(EndUser owner, Date date);
 }
