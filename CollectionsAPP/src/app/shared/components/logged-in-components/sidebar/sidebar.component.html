@@ -8,16 +8,13 @@
       </div>
     </li>
     <li>
-      <a (click)="addItem()"><i class="fa fa-add"></i> <span class="nav-label">  Add item</span></a>
-    </li>
-    <li>
       <a (click)="navigateToLikedItems()"><i class="fa fa-thumbs-up"></i> <span class="nav-label">  Liked items</span></a>
     </li>
     <li>
       <a (click)="navigateToMessages()"><i class="fab fa-stack-exchange"></i> <span class="nav-label">  Messages</span></a>
     </li>
     <li>
-      <a href=""><i class="fa fa-dollar-sign"></i> <span class="nav-label">  Offers</span></a>
+      <a><i class="fa fa-dollar-sign"></i> <span class="nav-label">  Offers</span></a>
     </li>
     <li>
       <p></p>
@@ -25,7 +22,7 @@
         Your collections
       </a></li>
     <li *ngFor="let category of categories; index as i">
-      <a (click)="redirectToCatergory(category)" style="color: white">{{i+1}} {{category}}</a>
+      <a (click)="redirectToCatergory(category)" style="color: white"><i class="fa fa-add"></i> {{category}}</a>
     </li>
   </ul>
 </nav>

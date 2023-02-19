@@ -33,10 +33,6 @@ export class SidebarComponent implements OnInit {
     })
   }
 
-  addItem() {
-    this.router.navigate(['../item/add'], {relativeTo: this.route})
-  }
-
   navigateToMessages() {
     this.router.navigate(['../chat'])
   }

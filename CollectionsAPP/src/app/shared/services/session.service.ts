@@ -54,7 +54,7 @@ export class SessionService {
   }
 
   getEmptyItemDto() :ItemDto {
-    return new ItemDto(9,"", "",Status.notForSale, new ItemCollectionDto(), [],[])
+    return new ItemDto(9,"", "",Status.notForSale, [])
   }
 
   clearSession() {

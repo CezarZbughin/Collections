@@ -35,7 +35,7 @@ const routes: Routes = [
     component: ChatComponent
   },
   {
-    path: 'item/add',
+    path: 'item/add/:id',
     component: AddItemComponent
   },
   {

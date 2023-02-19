@@ -102,4 +102,8 @@ export class CollectionComponent {
     })
   }
 
+  onAddNewItem() {
+      this.router.navigate(['../item/add/'+this.collection.id])
+  }
+
 }

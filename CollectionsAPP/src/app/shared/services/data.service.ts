@@ -3,8 +3,6 @@ import {JavaHttpService} from "../connection/http/java-http.service";
 import {ItemDto} from "../connection/models/item.dto";
 import {map, Observable} from "rxjs";
 import {EndUserDto} from "../connection/models/end-user.dto";
-import {LoginResponseDto} from "../connection/models/login-response.dto";
-import {SessionDetails} from "../../internal-models/session-details";
 import {SessionService} from "./session.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ChatMessageDto} from "../connection/models/chat-message.dto";
@@ -12,12 +10,13 @@ import {ResponseMessage, SentMessageDto} from "../connection/models/response-mes
 import { NotificationDto } from '../connection/models/notification.dto';
 import { ItemCollectionDto } from '../connection/models/item-collection.dto';
 import {Tag} from "../connection/models/tag";
+import {ItemDtoRequest} from "../connection/models/itemDtoRequest";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
- 
+
   constructor(
     private http: JavaHttpService,
     private router: Router,
@@ -116,5 +115,9 @@ export class DataService {
     }
     return path;
   }
-  
+
+  addItem(collectionId: number, item: ItemDtoRequest): Observable<ResponseMessage> {
+    let path = '/item/save/collection='+collectionId
+    return this.http.post<ResponseMessage,ItemDtoRequest>(path,item)
+  }
 }

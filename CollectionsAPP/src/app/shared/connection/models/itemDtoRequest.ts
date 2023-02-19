@@ -1,25 +1,21 @@
 import {EndUserDto} from "./end-user.dto";
 import {Tag} from "./tag";
 import {ItemCollectionDto} from "./item-collection.dto";
+import {Status} from "./item.dto";
 
-export class ItemDto {
+export class ItemDtoRequest {
   id: number = 0
   name: string = '';
   description: string = '';
   status: Status = Status.notForSale;
-  tags: Tag[] = [];
+  tags: String[] = [];
 
 
-  constructor(id: number, name: string, description: string, status: Status, tags: Tag[]) {
+  constructor(id: number, name: string, description: string, status: Status, tags: String[]) {
     this.id = id;
     this.name = name;
     this.description = description;
     this.status = status;
     this.tags = tags;
   }
-}
-
-export enum Status {
-  forSale = 'FOR_SALE',
-  notForSale = 'NOT_FOR_SALE',
 }
