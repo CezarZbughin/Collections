@@ -5,6 +5,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {TagDefinition} from "@angular/compiler";
 import {Tag} from "../../shared/connection/models/tag";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {ItemDto} from "../../shared/connection/models/item.dto";
+import {SessionService} from "../../shared/services/session.service";
 
 @Component({
   selector: 'app-add-item',
@@ -50,6 +52,7 @@ export class AddItemComponent implements OnInit{
   }
 
   onAddItem() {
+    // let item = new ItemDto(form)
 
   }
 }

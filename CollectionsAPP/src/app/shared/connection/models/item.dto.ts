@@ -10,6 +10,17 @@ export class ItemDto {
   collection: ItemCollectionDto = new ItemCollectionDto();
   tags: Tag[] = [];
   likes: EndUserDto[] = [];
+
+
+  constructor(id: number, name: string, description: string, status: Status, collection: ItemCollectionDto, tags: Tag[], likes: EndUserDto[]) {
+    this.id = id;
+    this.name = name;
+    this.description = description;
+    this.status = status;
+    this.collection = collection;
+    this.tags = tags;
+    this.likes = likes;
+  }
 }
 
 export enum Status {

@@ -8,11 +8,9 @@ import {ChatComponent} from "./pages/chat/chat.component";
 import {AddItemComponent} from "./pages/add-item/add-item.component";
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { CollectionComponent } from './pages/collection/collection.component';
-<<<<<<< HEAD
-=======
-import {UserDetailsComponent} from "./pages/user-details/user-details.component";
+import { UserDetailsComponent } from './pages/user-details/user-details.component';
 import {LikedItemsComponent} from "./pages/liked-items/liked-items.component";
->>>>>>> d698c8f3d19e57ab28792724466fc3902e1e769b
+
 
 const routes: Routes = [
   {

@@ -45,7 +45,7 @@ export class CollectionComponent {
   }
 
   getItemId(i: number): number {
-    return (this.collection.items.at(i) ?? new ItemDto()).id ?? 0 ;
+    return (this.collection.items.at(i) ?? SessionService.getInstance().getEmptyItemDto()).id ?? 0 ;
   }
 
   isLikedItem(i: number): boolean {
