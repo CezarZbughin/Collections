@@ -1,6 +1,6 @@
 <app-page-wrapper>
   <div class="col-lg-12">
-    <fieldset [formGroup]="form" (ngSubmit)="onAddItem()" style="padding-right: 250px">
+    <form [formGroup]="form" (ngSubmit)="onAddItem()" style="padding-right: 250px">
       <div class="form-group row"><label class="col-sm-2 col-form-label">Name</label>
         <div class="col-sm-10"><input formControlName="name" type="text" class="form-control" placeholder="Item name"></div>
       </div>
@@ -21,6 +21,6 @@
       <span style="padding-right: 30px" (click)="remove(tag)" *ngFor="let tag of this.addedTags; index as i" >{{tag.name}}</span>
       <p></p>
       <button type="submit" style="margin-left: 200px">Add item</button>
-    </fieldset>
+    </form>
   </div>
 </app-page-wrapper>

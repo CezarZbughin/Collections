@@ -2,11 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {DataService} from "../../shared/services/data.service";
 import {JavaHttpService} from "../../shared/connection/http/java-http.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {TagDefinition} from "@angular/compiler";
 import {Tag} from "../../shared/connection/models/tag";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {ItemDto} from "../../shared/connection/models/item.dto";
-import {SessionService} from "../../shared/services/session.service";
+import {Status} from "../../shared/connection/models/item.dto";
 
 @Component({
   selector: 'app-add-item',
@@ -21,7 +19,7 @@ export class AddItemComponent implements OnInit{
   form = new FormGroup({
     name: new FormControl('',[Validators.required,Validators.minLength(5),Validators.maxLength(30)]),
     description: new FormControl('',[Validators.required]),
-    confirmPassword: new FormControl('',[Validators.required])
+    status: new FormControl('',[Validators.required])
   });
 
   constructor(
@@ -52,7 +50,14 @@ export class AddItemComponent implements OnInit{
   }
 
   onAddItem() {
-    // let item = new ItemDto(form)
+    console.log("Yas")
+      let name = this.form.controls.name.value ?? "";
+      let description = this.form.controls.description.value ?? "";
+      let status = (this.form.controls.status.value ?? Status.notForSale) == "FOR_SALE" ? Status.forSale : Status.notForSale;
+
+      console.log(status)
+
+    
 
   }
 }
