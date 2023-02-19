@@ -15,13 +15,18 @@ import {ResponseMessage, SentMessageDto} from "../connection/models/response-mes
 })
 export class DataService {
 
-  constructor(private http: JavaHttpService,
-  private router: Router,
-  private route: ActivatedRoute) {
-  }
+  constructor(
+    private http: JavaHttpService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   getAllItems(): Observable<ItemDto[]> {
     return this.http.get<ItemDto[]>('/item/all');
+  }
+
+  getFeed(): Observable<ItemDto[]> {
+    return this.http.get<ItemDto[]>('/user/feed');
   }
 
   getCurrentUser(): Observable<EndUserDto> {

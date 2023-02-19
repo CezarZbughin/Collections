@@ -48,8 +48,7 @@ export class ChatComponent implements OnInit{
     })
   }
 
-  currentChatWith(index: number){
-    this.otherUser = this.getOtherUser(index);
+  reloadMessages(){
     this.dataService.getMessageWith(this.otherUser.id).subscribe({
       complete: () => {},
       error: (error) => {console.log(error)},
@@ -60,11 +59,16 @@ export class ChatComponent implements OnInit{
     })
   }
 
+  onContactClick(index: number){
+    this.otherUser = this.getOtherUser(index);
+    this.reloadMessages();
+  }
+
   getOtherUser(i: number): EndUserDto {
     return (this.contacts.at(i) ?? SessionService.getInstance().getEmptyUser());
   }
 
-  sendMessage() {
+  onMessageSubmit() {
     if(this.otherUser){
       let message = this.form.controls.message.value ?? "";
       if(message === ""){
@@ -73,10 +77,12 @@ export class ChatComponent implements OnInit{
       this.dataService.sendMessage(this.otherUser.id, message).subscribe({
         complete: () => {
           this.form.reset();
-          console.log('pula');
+          this.reloadMessages();
         },
         error: (error) => {},
-        next: (response:ResponseMessage) => {}
+        next: (response:ResponseMessage) => {
+
+        }
       })
     }
     this.form.reset()

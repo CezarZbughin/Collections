@@ -1,16 +1,16 @@
 <app-page-wrapper>
-  <div class="wrapper wrapper-content animated fadeInRight">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="ibox chat-view">
-          <div class="ibox-title">
+  <div class="wrapper wrapper-content animated fadeInRight" style="height: 100%">
+    <div class="row" style="height: 100%">
+      <div class="col-lg-12" style="height: 100%">
+        <div class="ibox chat-view" style="height: 100%">
+          <div class="ibox-title" >
             <strong>Messages</strong>
           </div>
 
-          <div class="ibox-content">
-            <div class="row">
+          <div class="ibox-content" style="height: 100%" >
+            <div class="row" style="height: 75%">
               <div class="col-md-9 ">
-                <div class="chat-discussion">
+                <div class="chat-discussion" style="height: 100%">
 
                   <div *ngFor="let currentMessage of currentMessages; index as i">
 
@@ -48,7 +48,7 @@
 
                   <!--Char user list-->
                     <div *ngFor="let contact of contacts; index as i">
-                        <div (click)="currentChatWith(i)" class="chat-user">
+                        <div (click)="onContactClick(i)" class="chat-user">
                           <div class="chat-user-name">
                             <a>{{contact.username.toUpperCase()}}</a>
                           </div>
@@ -63,7 +63,7 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="chat-message-form" >
-                  <div [formGroup]="form" (keydown.enter)="sendMessage()" class="form-group">
+                  <div [formGroup]="form" (keydown.enter)="onMessageSubmit()" class="form-group">
                     <textarea formControlName = "message" class="form-control message-input" name="message" placeholder="Enter message text" required id = "message"></textarea>
                   </div>
                 </div>
