@@ -56,7 +56,7 @@ export class LikedItemsComponent {
   }
 
   getItemId(i: number): number {
-    return (this.items.at(i) ?? new ItemDto()).id ?? 0 ;
+    return (this.items.at(i) ?? SessionService.getInstance().getEmptyItemDto()).id ?? 0 ;
   }
 
   isLikedItem(i: number): boolean {

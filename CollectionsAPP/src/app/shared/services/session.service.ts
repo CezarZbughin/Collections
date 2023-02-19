@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {SessionDetails} from "../../internal-models/session-details";
 import {EndUserDto} from "../connection/models/end-user.dto";
+import {ItemDto, Status} from "../connection/models/item.dto";
+import {ItemCollectionDto} from "../connection/models/item-collection.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +51,10 @@ export class SessionService {
 
   getEmptyUser() :EndUserDto {
     return new EndUserDto(0,"",[],[],[],"")
+  }
+
+  getEmptyItemDto() :ItemDto {
+    return new ItemDto(9,"", "",Status.notForSale, new ItemCollectionDto(), [],[])
   }
 
   clearSession() {

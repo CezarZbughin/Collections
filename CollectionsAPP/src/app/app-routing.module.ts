@@ -11,6 +11,7 @@ import { CollectionComponent } from './pages/collection/collection.component';
 import {UserDetailsComponent} from "./pages/user-details/user-details.component";
 import {LikedItemsComponent} from "./pages/liked-items/liked-items.component";
 
+
 const routes: Routes = [
   {
     path: '',
