@@ -30,11 +30,16 @@ export class CollectionComponent {
       this.dataService.getCollection(collectionName).subscribe({
         complete: () => {},
         error: (error) => {
+          console.log("error: current user :");
+          console.log(SessionService.getInstance().currentUser);
           console.log(error)
         },
         next: (response: ItemCollectionDto) => {
           //this.collection.items = [];
+          console.log("error: current user :");
+          console.log(SessionService.getInstance().currentUser);
           this.collection = response;
+          console.log(this.collection);
         }
       })
     });

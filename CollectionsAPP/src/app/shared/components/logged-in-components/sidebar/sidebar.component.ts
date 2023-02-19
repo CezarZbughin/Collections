@@ -42,10 +42,9 @@ export class SidebarComponent implements OnInit {
   }
 
   redirectToCatergory(category: String) {
-    console.log("Here")
-    this.router.navigate(['../collection/'+category],{
-      onSameUrlNavigation:"reload"
-    })
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.router.navigate(['../collection/'+category]);
+      });
   }
 
   onClickUsername(userName: string) {
