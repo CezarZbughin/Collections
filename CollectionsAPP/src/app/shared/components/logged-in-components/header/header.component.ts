@@ -11,6 +11,7 @@ export class HeaderComponent {
 
   logOut() {
     SessionService.getInstance().clearSession()
+    window.location.reload()
     this.router.navigate([".."])
   }
 

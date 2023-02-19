@@ -90,4 +90,11 @@ export class CollectionComponent {
     //});
     this.collection.items = this.collection.items.filter(obj => obj.id != item.id);
   }
+
+  onClickItem(id: number) {
+    this.router.navigate(['../item/details/'+id],{
+      onSameUrlNavigation:"reload"
+    })
+  }
+
 }

@@ -18,8 +18,8 @@ export class AddItemComponent implements OnInit{
   message: string = ""
   form = new FormGroup({
     name: new FormControl('',[Validators.required,Validators.minLength(5),Validators.maxLength(30)]),
-    description: new FormControl('',[Validators.required]),
-    status: new FormControl('',[Validators.required])
+    description: new FormControl(''),
+    status: new FormControl('')
   });
 
   constructor(
@@ -55,9 +55,9 @@ export class AddItemComponent implements OnInit{
       let description = this.form.controls.description.value ?? "";
       let status = (this.form.controls.status.value ?? Status.notForSale) == "FOR_SALE" ? Status.forSale : Status.notForSale;
 
-      console.log(status)
+      console.log(description)
 
-    
+
 
   }
 }
