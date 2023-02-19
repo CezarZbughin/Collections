@@ -20,6 +20,8 @@ import { LoggedOutHeaderComponent } from './shared/components/logged-out-compone
 import { LoggedOutSidebarComponent } from './shared/components/logged-out-components/logged-out-sidebar/logged-out-sidebar.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { CollectionComponent } from './pages/collection/collection.component';
+import { UserDetailsComponent } from './pages/user-details/user-details.component';
+import { LikedItemsComponent } from './pages/liked-items/liked-items.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { CollectionComponent } from './pages/collection/collection.component';
     LoggedOutHeaderComponent,
     LoggedOutSidebarComponent,
     NotificationsComponent,
-    CollectionComponent
+    CollectionComponent,
+    UserDetailsComponent,
+    LikedItemsComponent
   ],
   imports: [
     AlertModule.forRoot(),

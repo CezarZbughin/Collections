@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router, RouterModule} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ItemDto} from "../../../connection/models/item.dto";
 import {SessionService} from "../../../services/session.service";
 import {DataService} from "../../../services/data.service";
@@ -44,6 +44,18 @@ export class SidebarComponent implements OnInit {
   redirectToCatergory(category: String) {
     console.log("Here")
     this.router.navigate(['../collection/'+category],{
+      onSameUrlNavigation:"reload"
+    })
+  }
+
+  onClickUsername(userName: string) {
+    this.router.navigate(['../user/'+userName],{
+      onSameUrlNavigation:"reload"
+    })
+  }
+
+  navigateToLikedItems() {
+    this.router.navigate(['/likedItems'],{
       onSameUrlNavigation:"reload"
     })
   }

@@ -77,4 +77,14 @@ export class DataService {
     console.log(path)
     return this.http.get<ItemCollectionDto>(path)
   }
+
+  getUserByName(userName: string): Observable<EndUserDto> {
+    let path = '/user/find/username='+userName
+    return this.http.get<EndUserDto>(path)
+  }
+
+  geLikedItems() {
+    let path = '/user/liked-items'
+    return this.http.get<ItemDto[]>(path)
+  }
 }
