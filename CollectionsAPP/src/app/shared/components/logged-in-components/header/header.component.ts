@@ -20,4 +20,7 @@ export class HeaderComponent {
   ) {
   }
 
+  onNotificationClick() {
+    this.router.navigate(["../notifications"])
+  }
 }
