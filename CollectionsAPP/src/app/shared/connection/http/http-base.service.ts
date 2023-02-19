@@ -10,6 +10,7 @@ export abstract class HttpBaseService {
 
   public get<T>(entityPath: string): Observable<T> {
     const path = `${this.getBasePath()}${entityPath}`;
+    console.log(path)
     return this.http.get<T>(path, {headers: new HttpHeaders({
       'Authorization' : `Bearer ${SessionService.getInstance().getCurrentSession().authToken}`,
         'Access-Control-Allow-Origin': 'http://localhost:4200',

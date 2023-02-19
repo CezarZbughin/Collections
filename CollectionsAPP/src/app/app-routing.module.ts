@@ -6,6 +6,7 @@ import {RegisterComponent} from "./pages/register/register.component";
 import {ItemDetailsComponent} from "./pages/item-details/item-details.component";
 import {ChatComponent} from "./pages/chat/chat.component";
 import {AddItemComponent} from "./pages/add-item/add-item.component";
+import {CollectionComponent} from "./pages/collection/collection.component";
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: 'item/add',
     component: AddItemComponent
+  },
+  {
+    path: 'collection/:name',
+    component: CollectionComponent
   }
 
 ];

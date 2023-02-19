@@ -9,6 +9,7 @@ import {SessionService} from "./session.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ChatMessageDto} from "../connection/models/chat-message.dto";
 import {ResponseMessage, SentMessageDto} from "../connection/models/response-message";
+import {ItemCollectionDto} from "../connection/models/item-collection.dto";
 
 @Injectable({
   providedIn: 'root'
@@ -65,4 +66,10 @@ export class DataService {
     return this.http.post<ResponseMessage, SentMessageDto>('/message/send/receiver='+id, sentMessage)
   }
 
+  getCollection(collectionName: string): Observable<ItemCollectionDto> {
+    console.log(collectionName)
+    let path = '/collection/find/name='+collectionName
+    console.log(path)
+    return this.http.get<ItemCollectionDto>(path)
+  }
 }

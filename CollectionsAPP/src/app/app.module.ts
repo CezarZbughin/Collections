@@ -18,6 +18,7 @@ import { PageWrapperComponent } from './shared/components/page-wrapper/page-wrap
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { LoggedOutHeaderComponent } from './shared/components/logged-out-components/logged-out-header/logged-out-header.component';
 import { LoggedOutSidebarComponent } from './shared/components/logged-out-components/logged-out-sidebar/logged-out-sidebar.component';
+import { CollectionComponent } from './pages/collection/collection.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { LoggedOutSidebarComponent } from './shared/components/logged-out-compon
     AddItemComponent,
     PageWrapperComponent,
     LoggedOutHeaderComponent,
-    LoggedOutSidebarComponent
+    LoggedOutSidebarComponent,
+    CollectionComponent
   ],
   imports: [
     AlertModule.forRoot(),

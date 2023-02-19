@@ -22,14 +22,15 @@ export class SidebarComponent implements OnInit {
   categories: String[];
 
   ngOnInit(): void {
-    // this.dataService.setCurrentUser()
-    console.log(SessionService.getInstance().currentUser)
+    this.dataService.setCurrentUser(false, () =>{
+      console.log(SessionService.getInstance().currentUser)
 
-    let cachedUsername = localStorage.getItem("userName");
-    this.userName = cachedUsername ? cachedUsername: "";
+      let cachedUsername = localStorage.getItem("userName");
+      this.userName = cachedUsername ? cachedUsername: "";
 
-    let cachedCategories = localStorage.getItem("categories");
-    this.categories = cachedCategories ? cachedCategories.split(","): [];
+      let cachedCategories = localStorage.getItem("categories");
+      this.categories = cachedCategories ? cachedCategories.split(","): [];
+    })
   }
 
   addItem() {
@@ -38,5 +39,12 @@ export class SidebarComponent implements OnInit {
 
   navigateToMessages() {
     this.router.navigate(['../chat'])
+  }
+
+  redirectToCatergory(category: String) {
+    console.log("Here")
+    this.router.navigate(['../collection/'+category],{
+      onSameUrlNavigation:"reload"
+    })
   }
 }
