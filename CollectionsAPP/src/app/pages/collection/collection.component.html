@@ -1,15 +1,14 @@
 <app-page-wrapper>
   <div class="row">
-    <div *ngFor="let item of items; index as i" class="col-md-3">
+    <div *ngFor="let item of collection.items; index as i" class="col-md-3">
       <div class="ibox">
         <div class="ibox-content product-box">
           <div class="product-imitation">
             {{item.name}}
           </div>
           <div class="product-desc">
-            <div *ngIf="isOwnedByCurrentUser(item.collection.id)">
-              <i style="color: #2f4050" class="fa fa-trash"></i>
-              <i style="color: #1ab394; padding-left: 20px" class="fa fa-add"></i>
+            <div *ngIf="isOwnedByCurrentUser()">
+              <i (click)="onDeleteClick(item)" style="color: #2f4050" class="fa fa-trash"></i>
             </div>
             <span (click)="unlike(i)" *ngIf = "isLikedItem(i)" class="product-price" style="background-color: darkred">Unlike</span>
             <span (click)="like(i)" *ngIf = "!isLikedItem(i)" class="product-price">Like</span>

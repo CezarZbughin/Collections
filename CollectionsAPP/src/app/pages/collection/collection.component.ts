@@ -14,7 +14,7 @@ import {ItemCollectionDto} from "../../shared/connection/models/item-collection.
 })
 export class CollectionComponent {
 
-  items: ItemDto[]
+  collection: ItemCollectionDto;
 
   constructor(
     private dataService: DataService,
@@ -28,26 +28,24 @@ export class CollectionComponent {
     let collectionName = String(this.route.snapshot.paramMap.get('name'));
     this.dataService.setCurrentUser(false, () => {
       this.dataService.getCollection(collectionName).subscribe({
-        complete: () => {
-          console.log("We got collections")
-        },
+        complete: () => {},
         error: (error) => {
           console.log(error)
         },
         next: (response: ItemCollectionDto) => {
-          this.items = response.items
-          console.log(response)
+          this.collection.items = [];
+          this.collection = response;
         }
       })
     });
-
   }
+
   print(tag: string) {
     console.log(tag)
   }
 
   getItemId(i: number): number {
-    return (this.items.at(i) ?? new ItemDto()).id ?? 0 ;
+    return (this.collection.items.at(i) ?? new ItemDto()).id ?? 0 ;
   }
 
   isLikedItem(i: number): boolean {
@@ -80,8 +78,16 @@ export class CollectionComponent {
     }
   }
 
-  isOwnedByCurrentUser(itemCollectionId: number): boolean {
-    console.log(SessionService.getInstance().currentUser + "Blaablas");
-    return SessionService.getInstance().currentUser.collections.map(collection => collection.id).includes(itemCollectionId);
+  isOwnedByCurrentUser(): boolean {
+    return SessionService.getInstance().currentUser.collections.map(collection => collection.id).includes(this.collection.id);
+  }
+
+  onDeleteClick(item : ItemDto) :void {
+    //this.http.post<ResponseMessage, number>('/item/delete', item.id).subscribe({
+    //  complete:() => {window.location.reload()},
+    //  error: (error) => {console.log(error)},
+    //  next: (value) => {console.log(value)}
+    //});
+    this.collection.items = this.collection.items.filter(obj => obj.id != item.id);
   }
 }

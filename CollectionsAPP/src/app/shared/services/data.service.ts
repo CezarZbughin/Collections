@@ -9,11 +9,9 @@ import {SessionService} from "./session.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ChatMessageDto} from "../connection/models/chat-message.dto";
 import {ResponseMessage, SentMessageDto} from "../connection/models/response-message";
-<<<<<<< HEAD
 import { NotificationDto } from '../connection/models/notification.dto';
-=======
-import {ItemCollectionDto} from "../connection/models/item-collection.dto";
->>>>>>> 254b1233cc3f085d0db18440113571aa15105c99
+import { ItemCollectionDto } from '../connection/models/item-collection.dto';
+
 
 @Injectable({
   providedIn: 'root'
@@ -70,17 +68,14 @@ export class DataService {
     return this.http.post<ResponseMessage, SentMessageDto>('/message/send/receiver='+id, sentMessage)
   }
 
-<<<<<<< HEAD
   getNotifications() {
     return this.http.get<NotificationDto[]>('/notification/find/limit=30');
   }
 
-=======
   getCollection(collectionName: string): Observable<ItemCollectionDto> {
     console.log(collectionName)
     let path = '/collection/find/name='+collectionName
     console.log(path)
     return this.http.get<ItemCollectionDto>(path)
   }
->>>>>>> 254b1233cc3f085d0db18440113571aa15105c99
 }
