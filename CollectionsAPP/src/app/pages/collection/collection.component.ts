@@ -33,7 +33,7 @@ export class CollectionComponent {
           console.log(error)
         },
         next: (response: ItemCollectionDto) => {
-          this.collection.items = [];
+          //this.collection.items = [];
           this.collection = response;
         }
       })
