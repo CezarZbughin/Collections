@@ -89,4 +89,9 @@ export class LikedItemsComponent {
     }
   }
 
+  onClickItem(id: number) {
+    this.router.navigate(['../item/details/'+id],{
+      onSameUrlNavigation:"reload"
+    })
+  }
 }

@@ -93,4 +93,8 @@ export class DataService {
     return this.http.get<Tag[]>(path)
   }
 
+  getItemById(id: number) {
+    let path = '/item/find/id='+id
+    return this.http.get<ItemDto>(path)
+  }
 }

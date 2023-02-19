@@ -1,7 +1,7 @@
 <app-page-wrapper>
   <div class="row">
     <div *ngFor="let item of items; index as i" class="col-md-3">
-      <div class="ibox">
+      <div (click)="onClickItem(item.id)" class="ibox">
         <div class="ibox-content product-box">
           <div class="product-imitation">
             {{item.name}}

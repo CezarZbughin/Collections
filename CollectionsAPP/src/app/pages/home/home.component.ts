@@ -91,4 +91,9 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  onClickItem(id: number) {
+    this.router.navigate(['../item/details/'+id],{
+      onSameUrlNavigation:"reload"
+    })
+  }
 }

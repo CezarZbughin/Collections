@@ -48,9 +48,9 @@ export class SidebarComponent implements OnInit {
   }
 
   onClickUsername(userName: string) {
-    this.router.navigate(['../user/'+userName],{
-      onSameUrlNavigation:"reload"
-    })
+      this.router.navigate(['../user/'+userName],{
+        onSameUrlNavigation:"reload"
+      })
   }
 
   navigateToLikedItems() {
