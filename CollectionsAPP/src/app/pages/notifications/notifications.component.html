@@ -1,0 +1,12 @@
+<app-page-wrapper>
+    <div *ngFor="let notification of notifications; index as i">
+        <div style="height: 125px; margin-top: 10px; background-color: white;   box-shadow: 5px 5px 6px 6px #e0e0e0;">
+            <p style="color: gray; margin-left: 5px;">{{notification.date}}</p>
+            <p style="color: black; font-size: 24px; margin-left: 50px;">{{notification.text}}</p>
+            <div style = "overflow-x: auto;">
+                <a href="{{'chat'}}" style="margin-left:5px;">user</a>
+                <a href="{{'item/' + notification.item}}" style="margin-left:20px;">item</a>
+            </div>
+        </div>
+    </div>
+</app-page-wrapper>

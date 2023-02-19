@@ -9,6 +9,7 @@ import {SessionService} from "./session.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ChatMessageDto} from "../connection/models/chat-message.dto";
 import {ResponseMessage, SentMessageDto} from "../connection/models/response-message";
+import { NotificationDto } from '../connection/models/notification.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +64,10 @@ export class DataService {
   sendMessage(id: number, message: string): Observable<ResponseMessage> {
     let sentMessage = new SentMessageDto(message)
     return this.http.post<ResponseMessage, SentMessageDto>('/message/send/receiver='+id, sentMessage)
+  }
+
+  getNotifications() {
+    return this.http.get<NotificationDto[]>('/notification/find/limit=30');
   }
 
 }

@@ -16,6 +16,9 @@ public class NotificationService {
     NotificationRepository notificationRepository;
 
     public void messageNotification(EndUser user, EndUser from, String message){
+        List<Notification> notificationsToRemove = notificationRepository.findByOwnerAndFromAndType(user,from, Notification.Type.MESSAGE);
+        notificationRepository.deleteAll(notificationsToRemove);
+
         Notification notification = new Notification();
         notification.setOwner(user);
         notification.setFrom(from);
