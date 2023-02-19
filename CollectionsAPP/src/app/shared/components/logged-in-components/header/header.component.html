@@ -8,16 +8,16 @@
       </form>
     </div>
 
-    <span style="font-weight: bolder; position: center">{{this.router.url.toUpperCase()}}</span>
+<!--    <span style="font-weight: bolder; position: center">{{this.router.url.toUpperCase()}}</span>-->
 
     <ul class="nav navbar-top-links navbar-right">
       <li>
-        <a href="#">
-          <i class="fa fa-envelope"></i>
+        <a (click)="onHomeClick()">
+          <i class="fa fa-home"></i>
         </a>
       </li>
       <li>
-        <a href="#">
+        <a (click)="onNotificationClick()">
           <i class="fa fa-bell"></i>
         </a>
       </li>

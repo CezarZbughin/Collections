@@ -11,7 +11,7 @@ import {ChatMessageDto} from "../connection/models/chat-message.dto";
 import {ResponseMessage, SentMessageDto} from "../connection/models/response-message";
 import { NotificationDto } from '../connection/models/notification.dto';
 import { ItemCollectionDto } from '../connection/models/item-collection.dto';
-
+import {Tag} from "../connection/models/tag";
 
 @Injectable({
   providedIn: 'root'
@@ -78,4 +78,19 @@ export class DataService {
     console.log(path)
     return this.http.get<ItemCollectionDto>(path)
   }
+  getUserByName(userName: string): Observable<EndUserDto> {
+    let path = '/user/find/username='+userName
+    return this.http.get<EndUserDto>(path)
+  }
+
+  geLikedItems() {
+    let path = '/user/liked-items'
+    return this.http.get<ItemDto[]>(path)
+  }
+
+  getAllTags() {
+    let path = '/tag/all'
+    return this.http.get<Tag[]>(path)
+  }
+
 }

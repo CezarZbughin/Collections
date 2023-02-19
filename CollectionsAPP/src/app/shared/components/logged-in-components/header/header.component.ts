@@ -11,7 +11,7 @@ export class HeaderComponent {
 
   logOut() {
     SessionService.getInstance().clearSession()
-    window.location.reload()
+    this.router.navigate([".."])
   }
 
   constructor(
@@ -20,4 +20,11 @@ export class HeaderComponent {
   ) {
   }
 
+  onNotificationClick() {
+    this.router.navigate(["../notifications"])
+  }
+
+  onHomeClick() {
+    this.router.navigate([".."])
+  }
 }
