@@ -1,10 +1,9 @@
 <app-page-wrapper>
   <div class="row">
-    <div *ngIf = "collection.items != []">
       <div *ngFor="let item of collection.items; index as i" class="col-md-3">
         <div class="ibox">
           <div class="ibox-content product-box">
-            <div class="product-imitation">
+            <div (click)="onClickItem(item.id)" class="product-imitation">
               {{item.name}}
             </div>
           <div class="product-desc">
@@ -22,7 +21,6 @@
           </div>
         </div>
       </div>
-    </div>
     <div *ngIf = "collection.items == []">
       <div class="col-md-3">
         <div class="ibox">
