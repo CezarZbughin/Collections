@@ -47,7 +47,9 @@ export class SessionService {
     )
   }
 
-
+  getEmptyUser() :EndUserDto {
+    return new EndUserDto(0,"",[],[],[],"")
+  }
 
   clearSession() {
     localStorage.clear();

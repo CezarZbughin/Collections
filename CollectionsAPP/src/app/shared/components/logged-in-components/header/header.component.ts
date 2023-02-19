@@ -15,8 +15,8 @@ export class HeaderComponent {
   }
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute
+    public router: Router,
+    public route: ActivatedRoute
   ) {
   }
 

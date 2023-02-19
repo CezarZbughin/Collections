@@ -4,6 +4,6 @@ export class ChatMessageDto {
   id: number = 0;
   message: string = " " ;
   sentDate: Date = new Date();
-  sender: EndUserDto = new EndUserDto();
-  reciever: EndUserDto = new EndUserDto();
+  sender: number;
+  receiver: number;
 }

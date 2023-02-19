@@ -1,21 +1,22 @@
 <app-page-wrapper>
   <div class="row">
-    <div class="col-md-3">
-      <div class="ibox">
-        <div class="ibox-content product-box">
-          <div class="product-imitation">
-            [ INFO ]
-          </div>
-          <div class="product-desc">
-            <span class="product-price">$10</span>
-            <small>Category</small>
-            <a href="#" class="product-name"> Product</a>
-            <div class="small">
-              Many desktop publishing packages and web page editors now.
+      <div *ngFor="let item of items; index as i" class="col-md-3">
+        <div class="ibox">
+          <div class="ibox-content product-box">
+            <div class="product-imitation">
+              {{item.name}}
+            </div>
+            <div class="product-desc">
+              <span (click)="unlike(i)" *ngIf = "isLikedItem(i)" class="product-price" style="background-color: darkred">Unlike</span>
+              <span (click)="like(i)" *ngIf = "!isLikedItem(i)" class="product-price">Like</span>
+              <a href="#" class="product-name">
+                {{item.description}}</a>
+              <div class="small">
+                {{item.tags.toString()}}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
   </div>
 </app-page-wrapper>

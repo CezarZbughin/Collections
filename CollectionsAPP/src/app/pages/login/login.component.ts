@@ -44,7 +44,7 @@ export class LoginComponent {
       this.authService.loginPostRequest(loginRequest)
         .subscribe({
             complete: () => {
-              this.dataService.setCurrentUser()
+              this.dataService.setCurrentUser(true)
             },
             error: (error) => { this.message = error.error.message },
             next: (response : LoginResponseDto | String) => {

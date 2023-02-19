@@ -1,4 +1,3 @@
-import {ItemDto} from "./item.dto";
 import {ItemCollectionDto} from "./item-collection.dto";
 import {RoleDto} from "./role.dto";
 
@@ -8,16 +7,16 @@ export class EndUserDto {
   username: string = '';
   roles: RoleDto[] = [];
   collections: ItemCollectionDto[] = [];
-  linkedItems: ItemDto[] = [];
+  likedItems: number[] = [];
   token: string = "";
 
 
-  constructor(id: number, username: string, roles: RoleDto[], collections: ItemCollectionDto[], linkedItems: ItemDto[], token: string) {
+  constructor(id: number, username: string, roles: RoleDto[], collections: ItemCollectionDto[], likedItems: number[], token: string) {
     this.id = id;
     this.username = username;
     this.roles = roles;
     this.collections = collections;
-    this.linkedItems = linkedItems;
+    this.likedItems = likedItems;
     this.token = token;
   }
 

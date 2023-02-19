@@ -21,12 +21,8 @@ export class SidebarComponent implements OnInit {
   items: ItemDto[];
   categories: String[];
 
-  addItem() {
-    this.router.navigate(['./item/add'], {relativeTo: this.route})
-  }
-
   ngOnInit(): void {
-    this.dataService.setCurrentUser()
+    // this.dataService.setCurrentUser()
     console.log(SessionService.getInstance().currentUser)
 
     let cachedUsername = localStorage.getItem("userName");
@@ -36,4 +32,11 @@ export class SidebarComponent implements OnInit {
     this.categories = cachedCategories ? cachedCategories.split(","): [];
   }
 
+  addItem() {
+    this.router.navigate(['../item/add'], {relativeTo: this.route})
+  }
+
+  navigateToMessages() {
+    this.router.navigate(['../chat'])
+  }
 }

@@ -7,6 +7,8 @@ import {LoginResponseDto} from "../connection/models/login-response.dto";
 import {SessionDetails} from "../../internal-models/session-details";
 import {SessionService} from "./session.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {ChatMessageDto} from "../connection/models/chat-message.dto";
+import {ResponseMessage, SentMessageDto} from "../connection/models/response-message";
 
 @Injectable({
   providedIn: 'root'
@@ -26,11 +28,11 @@ export class DataService {
     return this.http.get<EndUserDto>('/user/self')
   }
 
-
-  setCurrentUser() {
+  setCurrentUser(redirect: boolean, completionHandler: Function = () => {}) {
     this.getCurrentUser().subscribe(
       {
-        complete: () => {this.router.navigate([".."],{relativeTo: this.route})},
+        complete: () => { if(redirect) {this.router.navigate([".."],{relativeTo: this.route})}
+                            completionHandler()},
         error: (error) => {console.log(error)},
         next: (response:EndUserDto) => {
           let categories:String[] = []
@@ -44,4 +46,18 @@ export class DataService {
       }
     )
   }
+
+  getContacts() {
+    return this.http.get<EndUserDto[]>('/message/get-users')
+  }
+
+  getMessageWith(otherUser: number) {
+    return this.http.get<ChatMessageDto[]>('/message/find/with='+otherUser)
+  }
+
+  sendMessage(id: number, message: string): Observable<ResponseMessage> {
+    let sentMessage = new SentMessageDto(message)
+    return this.http.post<ResponseMessage, SentMessageDto>('/message/send/receiver='+id, sentMessage)
+  }
+
 }

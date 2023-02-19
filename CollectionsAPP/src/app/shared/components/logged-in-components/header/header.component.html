@@ -1,12 +1,15 @@
 <div>
   <nav class="navbar navbar-static-top">
-    <div class="navbar-header">
-      <form role="search" class="navbar-form-custom" action="search_results.html">
+    <div *ngIf="router.url === '/' " class="navbar-header">
+      <form  role="search" class="navbar-form-custom" action="search_results.html">
         <div class="form-group">
           <input type="text" placeholder="Search for something..." class="form-control" name="top-search" id="top-search">
         </div>
       </form>
     </div>
+
+    <span style="font-weight: bolder; position: center">{{this.router.url.toUpperCase()}}</span>
+
     <ul class="nav navbar-top-links navbar-right">
       <li>
         <a href="#">

@@ -20,7 +20,11 @@ export abstract class HttpBaseService {
   public post<T, U>(entityPath: string, body: U): Observable<T> {
     const path = `${this.getBasePath()}${entityPath}`;
     console.log(path);
-    return this.http.post<T>(path, body);
+    return this.http.post<T>(path, body,{headers: new HttpHeaders({
+        'Authorization' : `Bearer ${SessionService.getInstance().getCurrentSession().authToken}`,
+        'Access-Control-Allow-Origin': 'http://localhost:4200',
+        'Access-Control-Allow-Headers' : 'Origin, X-Requested-With, Content-Type, Accept'
+      })});
   }
 
   public put<T, U>(entityPath: string, body: U): Observable<T> {
