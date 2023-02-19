@@ -6,7 +6,12 @@ import {RegisterComponent} from "./pages/register/register.component";
 import {ItemDetailsComponent} from "./pages/item-details/item-details.component";
 import {ChatComponent} from "./pages/chat/chat.component";
 import {AddItemComponent} from "./pages/add-item/add-item.component";
+<<<<<<< HEAD
 import { NotificationsComponent } from './pages/notifications/notifications.component';
+import { CollectionComponent } from './pages/collection/collection.component';
+=======
+import {CollectionComponent} from "./pages/collection/collection.component";
+>>>>>>> 254b1233cc3f085d0db18440113571aa15105c99
 
 const routes: Routes = [
   {
@@ -36,6 +41,10 @@ const routes: Routes = [
   {
     path: 'notifications',
     component: NotificationsComponent
+  },
+  {
+    path: 'collection/:name',
+    component: CollectionComponent
   }
 
 ];

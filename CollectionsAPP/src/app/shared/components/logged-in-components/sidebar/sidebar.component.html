@@ -25,7 +25,7 @@
         Your collections
       </a></li>
     <li *ngFor="let category of categories; index as i">
-      <a href="" style="color: white">{{i+1}} {{category}}</a>
+      <a (click)="redirectToCatergory(category)" style="color: white">{{i+1}} {{category}}</a>
     </li>
   </ul>
 </nav>
