@@ -10,6 +10,7 @@ import { NotificationsComponent } from './pages/notifications/notifications.comp
 import { CollectionComponent } from './pages/collection/collection.component';
 import {UserDetailsComponent} from "./pages/user-details/user-details.component";
 import {LikedItemsComponent} from "./pages/liked-items/liked-items.component";
+import { SearchComponent } from './pages/search/search.component';
 
 
 const routes: Routes = [
@@ -52,6 +53,10 @@ const routes: Routes = [
   {
     path: 'likedItems',
     component: LikedItemsComponent
+  },
+  {
+    path: 'search/:type/:name/:tag',
+    component: SearchComponent
   }
 
 ];

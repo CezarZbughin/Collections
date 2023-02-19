@@ -17,7 +17,7 @@ import {Tag} from "../connection/models/tag";
   providedIn: 'root'
 })
 export class DataService {
-
+ 
   constructor(
     private http: JavaHttpService,
     private router: Router,
@@ -97,4 +97,24 @@ export class DataService {
     let path = '/item/find/id='+id
     return this.http.get<ItemDto>(path)
   }
+
+  getSearchItemsPath(type: string, name: string, tag: string) {
+    let path:string ='/search';
+
+    if(name==='ANY'){
+      if(tag==="ANY"){
+        path = '/' + type + "/search";
+      }else{
+        path = '/' + type + "/search?tag=" + tag;
+      }
+    } else {
+      if(tag==="ANY"){
+        path = '/' + type + "/search?name=" + name;
+      }else{
+        path = '/' + type + "/search?name=" + name + "&tag=" + tag;
+      }
+    }
+    return path;
+  }
+  
 }

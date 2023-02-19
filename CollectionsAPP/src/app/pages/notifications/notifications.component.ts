@@ -34,8 +34,5 @@ export class NotificationsComponent implements OnInit{
       }
     })
   }
-
-  getNotifications() {
-    
-  }
+  
 }

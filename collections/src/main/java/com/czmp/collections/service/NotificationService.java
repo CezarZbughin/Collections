@@ -25,7 +25,7 @@ public class NotificationService {
         notification.setType(Notification.Type.MESSAGE);
         notification.setItem(null);
         notification.setDate(new Date());
-        notification.setText("You got a new message fro " + from.getUsername() + ".\n" + Math.min(message.length(), 50) + "...");
+        notification.setText("You got a new message from " + from.getUsername() + ".\n" + Math.min(message.length(), 50) + "...");
         notificationRepository.save(notification);
     }
 
