@@ -19,7 +19,6 @@ import javax.persistence.UniqueConstraint;
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "name")
         })
-
 public class Role extends IdentityModel<Long>{
     private String name;
 }

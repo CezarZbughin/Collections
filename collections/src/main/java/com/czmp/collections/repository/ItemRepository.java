@@ -15,5 +15,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     Optional<Item> findByName(String name);
     List<Item> findByNameLike(String name);
     List<Item> findByNameLikeAndTags(String name, Tag tags);
+    List<Item> findFirst50ByOrderByCreatedOnDesc();
+
+
 }
 
