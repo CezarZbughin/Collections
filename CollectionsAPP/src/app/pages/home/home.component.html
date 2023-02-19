@@ -1,9 +1,9 @@
 <app-page-wrapper>
   <div class="row">
       <div *ngFor="let item of items; index as i" class="col-md-3">
-        <div (click)="onClickItem(item.id)" class="ibox">
+        <div class="ibox">
           <div class="ibox-content product-box">
-            <div class="product-imitation">
+            <div (click)="onClickItem(item.id)" class="product-imitation">
               {{item.name}}
             </div>
             <div class="product-desc">
